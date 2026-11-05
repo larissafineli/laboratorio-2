@@ -1,0 +1,61 @@
+@startuml classes-v2
+title Diagrama de Classes - v2 (alinhado ao codigo implementado)
+skinparam classAttributeIconSize 0
+
+enum Papel { CLIENTE\nAGENTE_EMPRESA\nAGENTE_BANCO }
+enum StatusPedido { EM_ANALISE\nAPROVADO\nREPROVADO\nCONTRATADO\nCANCELADO }
+enum TipoProprietario { CLIENTE\nEMPRESA\nBANCO }
+
+class Usuario {
+  id : Long
+  login : String
+  senhaHash : String
+  nome : String
+  papel : Papel
+}
+class Cliente {
+  id : Long
+  rg : String
+  cpf : String
+  nome : String
+  endereco : String
+  profissao : String
+}
+class Rendimento {
+  id : Long
+  entidadeEmpregadora : String
+  valor : BigDecimal
+}
+class Automovel {
+  id : Long
+  matricula : String
+  ano : Integer
+  marca : String
+  modelo : String
+  placa : String
+  proprietario : TipoProprietario
+}
+class Pedido {
+  id : Long
+  dataInicio : LocalDate
+  dataFim : LocalDate
+  valorDiaria : BigDecimal
+  status : StatusPedido
+  parecer : String
+}
+class ContratoCredito {
+  id : Long
+  valor : BigDecimal
+  taxaJurosMensal : BigDecimal
+}
+
+Usuario --> Papel
+Pedido --> StatusPedido
+Automovel --> TipoProprietario
+Cliente "0..1" --> "1" Usuario : usuario (papel CLIENTE)
+Cliente "1" *-- "0..3" Rendimento
+Pedido "0..*" --> "1" Cliente
+Pedido "0..*" --> "1" Automovel
+Pedido "1" *-- "0..1" ContratoCredito
+ContratoCredito "0..*" --> "1" Usuario : banco (papel AGENTE_BANCO)
+@enduml

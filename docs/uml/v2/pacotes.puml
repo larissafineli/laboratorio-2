@@ -1,0 +1,36 @@
+@startuml pacotes-v2
+title Diagrama de Pacotes (Visao Logica) - v2
+skinparam packageStyle rectangle
+
+package "frontend (React + Vite)" as FE {
+  package "pages" as pages
+  package "components" as components
+  package "api.js" as apijs
+}
+
+package "backend (com.aluguel)" as BE {
+  package "controller  <<Controller>>" as controller
+  package "service" as service
+  package "repository" as repository
+  package "model  <<Model>>" as model
+  package "dto" as dto
+  package "config" as config
+  package "exception" as exception
+}
+
+database "Supabase\n(PostgreSQL)" as DB
+
+pages ..> components
+pages ..> apijs
+apijs ..> controller : HTTP/JSON\n(Basic Auth)
+controller ..> service
+controller ..> dto
+service ..> repository
+service ..> model
+service ..> dto
+repository ..> model
+config ..> controller : seguranca/CORS
+exception ..> controller : @RestControllerAdvice
+repository ..> DB : JPA/JDBC
+note bottom of pages : Visao (V): paginas montadas\ndinamicamente a partir da API
+@enduml
