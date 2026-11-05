@@ -1,0 +1,62 @@
+:root {
+  --bg: #f3f5fb; --card: #ffffff; --txt: #172033; --mut: #6b7488; --bor: #e1e5ef;
+  --pri: #4f46e5; --pri-2: #7c3aed; --pri-soft: #eef0ff;
+  --ok: #15803d; --ok-bg: #dcfce7; --bad: #dc2626; --bad-bg: #fee2e2; --warn: #a16207; --warn-bg: #fef3c7;
+  --sh: 0 1px 2px rgba(23,32,51,.06), 0 6px 20px rgba(23,32,51,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1424; --card: #171d33; --txt: #e8ebf5; --mut: #9aa3bb; --bor: #2a3250;
+    --pri-soft: #232a52; --ok-bg: #12351f; --bad-bg: #3a1717; --warn-bg: #3a2f10; --ok: #4ade80; --bad: #f87171; --warn: #facc15;
+    --sh: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--txt); line-height: 1.5; }
+h1 { font-size: 28px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 24px 0 12px; }
+.card h2 { margin-top: 0; }
+
+header { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 24px; background: linear-gradient(90deg, var(--pri), var(--pri-2)); color: #fff; box-shadow: var(--sh); }
+header strong { font-size: 18px; letter-spacing: .2px; }
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+header button { background: rgba(255,255,255,.14); color: #fff; border: 1px solid transparent; }
+header button:hover { background: rgba(255,255,255,.26); }
+header button.on { background: #fff; color: var(--pri); }
+
+main { max-width: 980px; margin: 24px auto; padding: 0 16px 48px; }
+.card { background: var(--card); border: 1px solid var(--bor); border-radius: 14px; padding: 20px; margin-bottom: 14px; box-shadow: var(--sh); }
+
+label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; color: var(--mut); margin: 12px 0 4px; }
+input, select { width: 100%; padding: 10px 12px; border: 1px solid var(--bor); border-radius: 10px; font: inherit; color: var(--txt); background: var(--card); transition: border-color .15s, box-shadow .15s; }
+input:focus, select:focus { outline: none; border-color: var(--pri); box-shadow: 0 0 0 3px var(--pri-soft); }
+
+button { padding: 9px 16px; border: 1px solid var(--bor); border-radius: 10px; background: var(--card); color: var(--txt); cursor: pointer; font: inherit; font-weight: 500; transition: transform .05s, background .15s, box-shadow .15s; }
+button:hover { background: var(--pri-soft); }
+button:active { transform: translateY(1px); }
+button.pri { background: linear-gradient(90deg, var(--pri), var(--pri-2)); color: #fff; border-color: transparent; }
+button.pri:hover { filter: brightness(1.08); box-shadow: 0 4px 14px rgba(79,70,229,.35); }
+button.bad { color: var(--bad); }
+button.bad:hover { background: var(--bad-bg); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.acoes { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.linha { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mut { color: var(--mut); font-size: 14px; margin: 6px 0 0; }
+.erro { color: var(--bad); background: var(--bad-bg); padding: 8px 12px; border-radius: 8px; margin: 12px 0 0; font-size: 14px; }
+.ok { color: var(--ok); background: var(--ok-bg); padding: 8px 12px; border-radius: 8px; margin: 12px 0 0; font-size: 14px; }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; background: var(--pri-soft); color: var(--pri); white-space: nowrap; }
+.badge.APROVADO, .badge.CONTRATADO { background: var(--ok-bg); color: var(--ok); }
+.badge.REPROVADO, .badge.CANCELADO { background: var(--bad-bg); color: var(--bad); }
+.badge.EM_ANALISE { background: var(--warn-bg); color: var(--warn); }
+
+.auth { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px;
+  background: radial-gradient(1000px 500px at 20% -10%, var(--pri-soft), transparent), var(--bg); }
+.auth-box { width: 100%; max-width: 560px; }
+.auth-box .marca { text-align: center; margin-bottom: 20px; }
+.auth-box .marca .logo { font-size: 44px; }
+.auth-box .marca p { color: var(--mut); margin: 0; }
+
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } header { padding: 10px 14px; } }
