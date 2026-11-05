@@ -1,0 +1,16 @@
+@startuml pacotes-v1
+title Diagrama de Pacotes - v1 (inicial)
+package "Gestao de pedidos e contratos" {
+  package controller
+  package model
+  package repository
+}
+package "Construcao dinamica das paginas web" {
+  package view
+}
+database "Banco de dados" as DB
+view ..> controller
+controller ..> model
+controller ..> repository
+repository ..> DB
+@enduml

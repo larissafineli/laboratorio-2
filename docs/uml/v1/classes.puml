@@ -1,0 +1,52 @@
+@startuml classes-v1
+title Diagrama de Classes - v1 (modelo inicial, derivado do enunciado)
+skinparam classAttributeIconSize 0
+
+abstract class Usuario {
+  login : String
+  senha : String
+}
+class Cliente {
+  rg : String
+  cpf : String
+  nome : String
+  endereco : String
+  profissao : String
+}
+class Rendimento {
+  entidadeEmpregadora : String
+  valor : BigDecimal
+}
+abstract class Agente {
+  nome : String
+}
+class Empresa
+class Banco
+class Automovel {
+  matricula : String
+  ano : int
+  marca : String
+  modelo : String
+  placa : String
+}
+class Pedido {
+  status : StatusPedido
+}
+class Contrato
+class ContratoCredito {
+  valor : BigDecimal
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Agente
+Agente <|-- Empresa
+Agente <|-- Banco
+Cliente "1" *-- "0..3" Rendimento
+Cliente "1" -- "0..*" Pedido
+Pedido "*" -- "1" Automovel
+Pedido "1" -- "0..1" Contrato
+Contrato "0..1" -- "0..1" ContratoCredito
+ContratoCredito "*" -- "1" Banco
+Automovel "*" -- "1" Proprietario : registrado em nome de
+note right of Automovel : proprietario: Cliente, Empresa ou Banco
+@enduml
