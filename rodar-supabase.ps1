@@ -2,8 +2,16 @@
 # Voce cola a "connection string" do Supabase (Session pooler) e digita a senha do banco.
 
 Write-Host ""
-Write-Host "No Supabase: botao Connect (topo) > aba 'Session pooler' > copie a linha que comeca com postgresql://" -ForegroundColor Cyan
-$uri = Read-Host "Cole a connection string aqui"
+# Se existir supabase.local.txt (fora do git), le a connection string de la.
+$arquivo = Join-Path $PSScriptRoot "supabase.local.txt"
+if (Test-Path $arquivo) {
+    $uri = (Get-Content $arquivo -Raw).Trim()
+    Write-Host "Usando a connection string de supabase.local.txt" -ForegroundColor Cyan
+} else {
+    Write-Host "No Supabase: botao Connect (topo) > aba 'Session pooler' > copie a linha que comeca com postgresql://" -ForegroundColor Cyan
+    Write-Host "Para colar no terminal use o botao direito do mouse (Ctrl+V pode nao funcionar)." -ForegroundColor Yellow
+    $uri = Read-Host "Cole a connection string aqui"
+}
 $senhaSegura = Read-Host "Digite a SENHA do banco (a que voce criou no projeto)" -AsSecureString
 $senha = [System.Net.NetworkCredential]::new("", $senhaSegura).Password
 
