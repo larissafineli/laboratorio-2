@@ -24,5 +24,4 @@ Write-Host "Conectando em $host_ como $usuario ..." -ForegroundColor Green
 
 Set-Location (Join-Path $PSScriptRoot "backend")
 # Usa o Maven Wrapper do projeto (nao precisa ter Maven instalado).
-# Retire o -Djava.version=21 se voce instalar o JDK 25.
-& .\mvnw.cmd "-Djava.version=21" clean spring-boot:run
+& .\mvnw.cmd clean spring-boot:run
