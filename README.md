@@ -134,4 +134,4 @@ cd backend && mvn test
 - [Modelagem](docs/modelagem.md) · [UML PlantUML](docs/uml) · [Roteiro da apresentação](docs/apresentacao.md)
 
 ## 👥 Autores
-- Christiano Gonara — PUC Minas, Engenharia de Software
+- Larissa Fineli — PUC Minas, Engenharia de Software

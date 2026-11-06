@@ -1,0 +1,35 @@
+@startuml casos-de-uso-v1
+title Casos de Uso - v1 (modelo inicial)
+left to right direction
+actor Cliente
+actor Empresa
+actor Banco
+
+rectangle "Sistema de Aluguel de Carros" {
+  usecase "Cadastrar-se" as UC1
+  usecase "Autenticar (login)" as UC2
+  usecase "Introduzir pedido" as UC3
+  usecase "Modificar pedido" as UC4
+  usecase "Consultar pedido" as UC5
+  usecase "Cancelar pedido" as UC6
+  usecase "Avaliar pedido (analise financeira)" as UC7
+  usecase "Executar contrato" as UC8
+  usecase "Conceder contrato de credito" as UC9
+}
+
+Cliente --> UC1
+Cliente --> UC3
+Cliente --> UC4
+Cliente --> UC5
+Cliente --> UC6
+Empresa --> UC4
+Empresa --> UC7
+Empresa --> UC8
+Banco --> UC4
+Banco --> UC7
+Banco --> UC8
+Banco --> UC9
+UC3 ..> UC2 : <<include>>
+UC7 ..> UC2 : <<include>>
+UC8 ..> UC7 : <<include>>
+@enduml

@@ -47,6 +47,8 @@ Pedido "*" -- "1" Automovel
 Pedido "1" -- "0..1" Contrato
 Contrato "0..1" -- "0..1" ContratoCredito
 ContratoCredito "*" -- "1" Banco
-Automovel "*" -- "1" Proprietario : registrado em nome de
-note right of Automovel : proprietario: Cliente, Empresa ou Banco
+Automovel "*" -- "0..1" Cliente : propriedade de
+Automovel "*" -- "0..1" Empresa : propriedade de
+Automovel "*" -- "0..1" Banco : propriedade de
+note bottom of Automovel : Dependendo do tipo de contrato, o automovel e\nregistrado como propriedade de cliente, empresa ou banco
 @enduml

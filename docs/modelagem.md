@@ -1,6 +1,7 @@
 # Modelagem do Sistema de Aluguel de Carros
 
-> Versão 1.0 — diagramas em Mermaid (renderizados automaticamente pelo GitHub).
+> Versão 2.0 (alinhada ao código implementado) — diagramas em Mermaid, renderizados automaticamente pelo GitHub.
+> O modelo inicial (v1) está em [uml/v1](uml/v1) e a versão final em PlantUML em [uml/v2](uml/v2).
 > Ao alterar o código, atualize este arquivo e registre a mudança no histórico ao final.
 
 ## 1. Histórias do Usuário
@@ -169,4 +170,5 @@ Subsistemas citados no enunciado: **gestão de pedidos e contratos** (`controlle
 
 | Versão | Mudança |
 |--------|---------|
-| 1.0 | Modelos iniciais; código implementado com `Pedido` possuindo `ContratoCredito` opcional e `Usuario` unificando clientes e agentes (login), com `Cliente` como perfil do usuário com papel `CLIENTE`. |
+| 1.0 | Modelo inicial (`docs/uml/v1`): `Cliente` e `Agente` (`Empresa`, `Banco`) como subclasses de `Usuario`; `Pedido` ligado a um `Contrato`, que pode ter um `ContratoCredito`; automóvel associado a cliente, empresa ou banco. |
+| 2.0 | Modelo alinhado ao código: `Usuario` único com `Papel` (agentes deixam de ser classes); `Cliente` passa a ser o perfil do papel `CLIENTE`; o contrato de aluguel vira o estado `CONTRATADO` do `Pedido`; `ContratoCredito` opcional dentro do `Pedido`; propriedade do automóvel vira o enum `TipoProprietario`; pedido ganha datas, diária e parecer; pacotes `service`, `dto`, `config` e `exception` adicionados. |
