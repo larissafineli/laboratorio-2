@@ -125,7 +125,9 @@ cd backend && mvn clean package     # gera target/*.jar
 ```bash
 cd backend && mvn test
 ```
-Cobrem ciclo de vida do pedido, permissões, limite de 3 rendimentos e login duplicado.
+16 testes: regras de negócio (ciclo de vida do pedido, permissões, limite de 3 rendimentos, login duplicado) e API HTTP de ponta a ponta (401 sem login, 403 por papel, fluxo cadastro → pedido → aprovação → contrato).
+
+> Se o VS Code recompilar o projeto com outro JDK e aparecer `UnsupportedClassVersionError`, rode o Maven com `clean`.
 
 ## 📚 Documentação
 - [Modelagem](docs/modelagem.md) · [UML PlantUML](docs/uml) · [Roteiro da apresentação](docs/apresentacao.md)
