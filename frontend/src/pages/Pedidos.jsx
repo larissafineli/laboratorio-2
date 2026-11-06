@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api'
+import CampoData, { hojeIso, isoParaBr } from '../components/CampoData.jsx'
 
 const vazio = { automovelId: '', dataInicio: '', dataFim: '', valorDiaria: '', bancoId: '', valorCredito: '', taxaJurosMensal: '' }
 
@@ -39,6 +40,9 @@ export default function Pedidos({ usuario }) {
 
   async function salvar(e) {
     e.preventDefault()
+    if (!form.dataInicio || !form.dataFim) return setErro('Informe datas válidas no formato dd/mm/aaaa.')
+    if (!editando && form.dataInicio < hojeIso()) return setErro('A data de início não pode ser anterior a hoje.')
+    if (form.dataFim < form.dataInicio) return setErro('A data de fim não pode ser anterior à data de início.')
     await agir(async () => {
       if (editando) await api.modificarPedido(editando, paraRequest())
       else await api.criarPedido(paraRequest())
@@ -74,9 +78,22 @@ export default function Pedidos({ usuario }) {
             {automoveis.map((a) => <option key={a.id} value={a.id}>{a.marca} {a.modelo} {a.ano} — {a.placa}</option>)}
           </select>
           <div className="grid">
-            <div><label>Início</label><input type="date" value={form.dataInicio} onChange={set('dataInicio')} required /></div>
-            <div><label>Fim</label><input type="date" value={form.dataFim} onChange={set('dataFim')} required /></div>
+            <CampoData
+              label="Data de início"
+              value={form.dataInicio}
+              onChange={(v) => setForm((f) => ({ ...f, dataInicio: v }))}
+              min={editando ? undefined : hojeIso()}
+              avisoMin="A data de início não pode ser anterior a hoje."
+            />
+            <CampoData
+              label="Data de fim"
+              value={form.dataFim}
+              onChange={(v) => setForm((f) => ({ ...f, dataFim: v }))}
+              min={form.dataInicio || undefined}
+              avisoMin="A data de fim não pode ser anterior à data de início."
+            />
           </div>
+          {!editando && <p className="mut">Use o formato dd/mm/aaaa. A data de início não pode ser anterior a hoje ({isoParaBr(hojeIso())}).</p>}
           <label>Valor da diária (R$)</label>
           <input type="number" step="0.01" min="0.01" value={form.valorDiaria} onChange={set('valorDiaria')} required />
 
@@ -109,7 +126,7 @@ export default function Pedidos({ usuario }) {
           </div>
           <p className="mut">
             {agente && <>Cliente: {p.cliente.nome} (CPF {p.cliente.cpf}) · </>}
-            {p.dataInicio} a {p.dataFim} · R$ {p.valorDiaria}/dia
+            {isoParaBr(p.dataInicio)} a {isoParaBr(p.dataFim)} · R$ {p.valorDiaria}/dia
           </p>
           {agente && <p className="mut">Rendimentos: {p.cliente.rendimentos.map((r) => `${r.entidadeEmpregadora} R$ ${r.valor}`).join(' | ') || '—'}</p>}
           {p.contratoCredito && (

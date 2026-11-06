@@ -45,6 +45,7 @@ button.bad:hover { background: var(--bad-bg); }
 .linha { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .mut { color: var(--mut); font-size: 14px; margin: 6px 0 0; }
 .erro { color: var(--bad); background: var(--bad-bg); padding: 8px 12px; border-radius: 8px; margin: 12px 0 0; font-size: 14px; }
+.campo-aviso { color: var(--bad); font-size: 13px; margin-top: 4px; }
 .ok { color: var(--ok); background: var(--ok-bg); padding: 8px 12px; border-radius: 8px; margin: 12px 0 0; font-size: 14px; }
 
 .badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; background: var(--pri-soft); color: var(--pri); white-space: nowrap; }
