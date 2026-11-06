@@ -7,6 +7,7 @@ import com.aluguel.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -49,6 +50,9 @@ public class PedidoService {
         if (u.getPapel().isAgente()) throw new AcessoNegadoException("Apenas clientes introduzem pedidos");
         Cliente cliente = clientes.findByUsuarioId(u.getId())
                 .orElseThrow(() -> new NaoEncontradoException("Cliente nao encontrado"));
+        if (req.dataInicio().isBefore(LocalDate.now())) {
+            throw new RegraNegocioException("A data de inicio nao pode ser anterior a hoje");
+        }
         Pedido p = new Pedido();
         p.setCliente(cliente);
         p.setStatus(StatusPedido.EM_ANALISE);

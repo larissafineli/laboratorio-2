@@ -31,7 +31,7 @@ public final class Dtos {
 
     public record PedidoRequest(
             @NotNull Long automovelId,
-            @NotNull @FutureOrPresent LocalDate dataInicio,
+            @NotNull LocalDate dataInicio,
             @NotNull LocalDate dataFim,
             @NotNull @DecimalMin("0.01") BigDecimal valorDiaria,
             Long bancoId,
