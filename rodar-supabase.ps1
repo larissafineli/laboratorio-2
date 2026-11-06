@@ -12,8 +12,13 @@ if (Test-Path $arquivo) {
     Write-Host "Para colar no terminal use o botao direito do mouse (Ctrl+V pode nao funcionar)." -ForegroundColor Yellow
     $uri = Read-Host "Cole a connection string aqui"
 }
-$senhaSegura = Read-Host "Digite a SENHA do banco (a que voce criou no projeto)" -AsSecureString
-$senha = [System.Net.NetworkCredential]::new("", $senhaSegura).Password
+Write-Host "A senha vai aparecer na tela para voce conferir o que digitou. Use botao direito para colar." -ForegroundColor Yellow
+$senha = (Read-Host "Digite a SENHA do banco (a que voce criou no projeto)").Trim()
+if ($senha.Length -lt 6 -or $senha -match '\^V') {
+    Write-Host "Senha vazia ou invalida (digitou ^V?). Digite a senha manualmente ou use o botao direito para colar." -ForegroundColor Red
+    exit 1
+}
+Write-Host ("Senha recebida com " + $senha.Length + " caracteres.") -ForegroundColor Cyan
 
 # Formato esperado: postgresql://USUARIO:[SENHA]@HOST:PORTA/BANCO
 if ($uri -notmatch '^postgres(?:ql)?://([^:@]+)(?::[^@]*)?@([^:/]+):(\d+)/(\w+)') {
