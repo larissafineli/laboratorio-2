@@ -1,5 +1,6 @@
 .env
 supabase.local.txt
+log-*.txt
 node_modules/
 dist/
 target/

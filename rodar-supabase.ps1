@@ -30,6 +30,14 @@ $env:APP_SEED = "true"   # cria usuarios de teste so se o banco estiver vazio
 
 Write-Host "Conectando em $host_ como $usuario ..." -ForegroundColor Green
 
+# Usa o JDK 25 se estiver instalado (terminais abertos antes da instalacao ainda enxergam o Java antigo).
+$jdk25 = Get-ChildItem "C:\Program Files\Microsoft", "C:\Program Files\Java", "C:\Program Files\Eclipse Adoptium" -Directory -Filter "jdk-25*" -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($jdk25) {
+    $env:JAVA_HOME = $jdk25.FullName
+    $env:Path = "$($jdk25.FullName)\bin;$env:Path"
+}
+Write-Host ("Java em uso: " + ((& java -version 2>&1) | Select-Object -First 1)) -ForegroundColor Cyan
+
 Set-Location (Join-Path $PSScriptRoot "backend")
 # Usa o Maven Wrapper do projeto (nao precisa ter Maven instalado).
 & .\mvnw.cmd clean spring-boot:run
