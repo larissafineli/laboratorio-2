@@ -59,8 +59,9 @@ No PowerShell use `$env:NOME = "valor"`. As tabelas são criadas pelo Hibernate 
 ### Back-end
 ```bash
 cd backend
-mvn spring-boot:run      # http://localhost:8080/api
+./mvnw spring-boot:run   # Windows: .\mvnw.cmd spring-boot:run  (ou mvn, se instalado) -> http://localhost:8080/api
 ```
+O Maven Wrapper (`mvnw`) vem no projeto e baixa o Maven sozinho.
 
 #### Sem Supabase (perfil `local`, banco H2 em memória + dados de demonstração)
 ```bash
